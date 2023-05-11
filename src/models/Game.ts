@@ -44,10 +44,13 @@ export type Action =
   | 'MOVE_RIGHT'
   | 'FLIP_CLOCKWISE'
   | 'FLIP_COUNTERCLOCKWISE'
-  | 'RESTART';
+  | 'RESTART'
+  | { type: 'REPLACE_GAME', game: Game };
 
-export const update = (game: Game, action: Action): Game => {
-  switch (action) {
+export const update = (game: Game, inputAction: Action): Game => {
+  const action = typeof inputAction === 'string' ? { type: inputAction} : inputAction
+
+  switch (action.type) {
     case 'RESTART': {
       return init();
     }
@@ -114,6 +117,8 @@ export const update = (game: Game, action: Action): Game => {
         queue: newPiece === next.piece ? next.queue : game.queue
       };
     }
+    case 'REPLACE_GAME':
+      return action.game;
     default: {
       const exhaustiveCheck: never = action;
       throw new Error(`Unhandled action: ${exhaustiveCheck}`);

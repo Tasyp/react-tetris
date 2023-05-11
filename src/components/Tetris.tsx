@@ -31,6 +31,7 @@ export type Controller = {
 };
 
 type Props = {
+  game?: Game.Game;
   keyboardControls?: KeyboardMap;
   children: RenderFn;
 };
@@ -57,6 +58,14 @@ export default function Tetris(props: Props): JSX.Element {
   const keyboardMap = props.keyboardControls ?? defaultKeyboardMap;
   useKeyboardControls(keyboardMap, dispatch);
   const level = Game.getLevel(game);
+
+  React.useEffect(() => {
+    if (props.game === undefined) {
+      return;
+    }
+
+    dispatch({ type: "REPLACE_GAME", game: props.game });
+  }, [props.game]);
 
   React.useEffect(() => {
     let interval: number | undefined;
