@@ -20,6 +20,6 @@ export declare type Action = 'PAUSE' | 'RESUME' | 'TOGGLE_PAUSE' | 'TICK' | 'HOL
     game: Partial<Game>;
 };
 export declare const update: (game: Game, inputAction: Action) => Game;
-export declare const init: () => Game;
+export declare const init: (startMatrix?: Matrix) => Game;
 export declare function viewMatrix(game: Game): Matrix;
 export {};

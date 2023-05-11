@@ -176,14 +176,14 @@ const applyMove = (
   return afterFlip ? { ...game, piece: afterFlip } : game;
 };
 
-export const init = (): Game => {
+export const init = (startMatrix?: Matrix): Game => {
   const queue = PieceQueue.create(5);
   const next = PieceQueue.getNext(queue);
   return {
     state: 'PLAYING',
     points: 0,
     lines: 0,
-    matrix: buildMatrix(),
+    matrix: startMatrix ?? buildMatrix(),
     piece: initializePiece(next.piece),
     heldPiece: undefined,
     queue: next.queue

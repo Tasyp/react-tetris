@@ -5,6 +5,7 @@ import HeldPiece from './HeldPiece';
 import PieceQueue from './PieceQueue';
 import { Context } from '../context';
 import { KeyboardMap, useKeyboardControls } from '../hooks/useKeyboardControls';
+import { Matrix } from '../models/Matrix';
 
 export type RenderFn = (params: {
   HeldPiece: React.ComponentType;
@@ -31,7 +32,7 @@ export type Controller = {
 };
 
 type Props = {
-  game?: Partial<Game.Game>;
+  matrix?: Matrix;
   keyboardControls?: KeyboardMap;
   children: RenderFn;
 };
@@ -54,18 +55,10 @@ const tickSeconds = (level: number) =>
   (0.8 - (level - 1) * 0.007) ** (level - 1);
 
 export default function Tetris(props: Props): JSX.Element {
-  const [game, dispatch] = React.useReducer(Game.update, Game.init());
+  const [game, dispatch] = React.useReducer(Game.update, Game.init(props.matrix));
   const keyboardMap = props.keyboardControls ?? defaultKeyboardMap;
   useKeyboardControls(keyboardMap, dispatch);
   const level = Game.getLevel(game);
-
-  React.useEffect(() => {
-    if (props.game === undefined) {
-      return;
-    }
-
-    dispatch({ type: "REPLACE_GAME", game: props.game });
-  }, [props.game]);
 
   React.useEffect(() => {
     let interval: number | undefined;

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Game from '../models/Game';
 import { KeyboardMap } from '../hooks/useKeyboardControls';
+import { Matrix } from '../models/Matrix';
 export declare type RenderFn = (params: {
     HeldPiece: React.ComponentType;
     Gameboard: React.ComponentType;
@@ -24,7 +25,7 @@ export declare type Controller = {
     restart: () => void;
 };
 declare type Props = {
-    game?: Partial<Game.Game>;
+    matrix?: Matrix;
     keyboardControls?: KeyboardMap;
     children: RenderFn;
 };

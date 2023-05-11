@@ -22726,14 +22726,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     const afterFlip = move(game.matrix, game.piece);
     return afterFlip ? { ...game, piece: afterFlip } : game;
   };
-  var init = () => {
+  var init = (startMatrix) => {
     const queue = create(5);
     const next = getNext(queue);
     return {
       state: "PLAYING",
       points: 0,
       lines: 0,
-      matrix: buildMatrix(),
+      matrix: startMatrix ?? buildMatrix(),
       piece: initializePiece(next.piece),
       heldPiece: void 0,
       queue: next.queue
@@ -22908,16 +22908,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   };
   var tickSeconds = (level) => (0.8 - (level - 1) * 7e-3) ** (level - 1);
   function Tetris(props) {
-    const [game, dispatch] = import_react8.default.useReducer(update, init());
+    const [game, dispatch] = import_react8.default.useReducer(update, init(props.matrix));
     const keyboardMap = props.keyboardControls ?? defaultKeyboardMap;
     useKeyboardControls(keyboardMap, dispatch);
     const level = getLevel(game);
-    import_react8.default.useEffect(() => {
-      if (props.game === void 0) {
-        return;
-      }
-      dispatch({ type: "REPLACE_GAME", game: props.game });
-    }, [props.game]);
     import_react8.default.useEffect(() => {
       let interval;
       if (game.state === "PLAYING") {
