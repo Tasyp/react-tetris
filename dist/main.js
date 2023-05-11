@@ -22679,7 +22679,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         };
       }
       case "REPLACE_GAME":
-        return action.game;
+        return { ...game, ...action.game };
       default: {
         const exhaustiveCheck = action;
         throw new Error(`Unhandled action: ${exhaustiveCheck}`);

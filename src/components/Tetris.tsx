@@ -31,7 +31,7 @@ export type Controller = {
 };
 
 type Props = {
-  game?: Game.Game;
+  game?: Partial<Game.Game>;
   keyboardControls?: KeyboardMap;
   children: RenderFn;
 };

@@ -24,7 +24,7 @@ export declare type Controller = {
     restart: () => void;
 };
 declare type Props = {
-    game?: Game.Game;
+    game?: Partial<Game.Game>;
     keyboardControls?: KeyboardMap;
     children: RenderFn;
 };

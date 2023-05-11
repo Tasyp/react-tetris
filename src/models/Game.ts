@@ -45,7 +45,7 @@ export type Action =
   | 'FLIP_CLOCKWISE'
   | 'FLIP_COUNTERCLOCKWISE'
   | 'RESTART'
-  | { type: 'REPLACE_GAME', game: Game };
+  | { type: 'REPLACE_GAME', game: Partial<Game> };
 
 export const update = (game: Game, inputAction: Action): Game => {
   const action = typeof inputAction === 'string' ? { type: inputAction} : inputAction
@@ -118,7 +118,7 @@ export const update = (game: Game, inputAction: Action): Game => {
       };
     }
     case 'REPLACE_GAME':
-      return action.game;
+      return {...game, ...action.game};
     default: {
       const exhaustiveCheck: never = action;
       throw new Error(`Unhandled action: ${exhaustiveCheck}`);
