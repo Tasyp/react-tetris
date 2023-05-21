@@ -83,26 +83,9 @@ export function setPiece(
   return [_matrix, linesCleared];
 }
 
-function clearFullLines(matrix: Matrix): number {
+function clearFullLines(_matrix: Matrix): number {
   let linesCleared = 0;
-  for (let y = 0; y < matrix.length; y++) {
-    // it's a full line
-    if (every(matrix[y]!)) {
-      // so rip it out
-      matrix.splice(y, 1);
-      matrix.unshift(buildGameRow());
-      linesCleared += 1;
-    }
-  }
-
   return linesCleared;
-}
-
-function every<T>(list: T[]): boolean {
-  for (let i = 0; i < list.length; i++) {
-    if (!list[i]) return false;
-  }
-  return true;
 }
 
 export function isEmptyPosition(

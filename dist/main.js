@@ -22459,23 +22459,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     const linesCleared = clearFullLines(_matrix);
     return [_matrix, linesCleared];
   }
-  function clearFullLines(matrix) {
+  function clearFullLines(_matrix) {
     let linesCleared = 0;
-    for (let y2 = 0; y2 < matrix.length; y2++) {
-      if (every(matrix[y2])) {
-        matrix.splice(y2, 1);
-        matrix.unshift(buildGameRow());
-        linesCleared += 1;
-      }
-    }
     return linesCleared;
-  }
-  function every(list) {
-    for (let i2 = 0; i2 < list.length; i2++) {
-      if (!list[i2])
-        return false;
-    }
-    return true;
   }
   function isEmptyPosition(matrix, positionedPiece) {
     const { piece, rotation, position } = positionedPiece;
