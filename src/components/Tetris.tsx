@@ -73,6 +73,15 @@ export default function Tetris(props: Props): JSX.Element {
     };
   }, [game.state, level]);
 
+  React.useEffect(() => {
+    if (game.matrix === props.matrix) {
+      return;
+    }
+
+
+    dispatch({type: "REPLACE_GAME", game: {matrix: props.matrix}})
+  }, [dispatch, props.matrix]);
+
   const controller = React.useMemo(
     () => ({
       pause: () => dispatch('PAUSE'),
