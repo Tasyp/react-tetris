@@ -13,7 +13,8 @@ export const useKeyboardControls = (
     const keyboardDispatch = Object.entries(
       keyboardMap
     ).reduce<KeyboardDispatch>((output, [key, action]) => {
-      output[key] = () => dispatch(action);
+      // @ts-expect-error: Non matching type error
+      output[key] = () => typeof action === 'function' ? action() : dispatch(action);
       return output;
     }, {});
     addKeyboardEvents(keyboardDispatch);

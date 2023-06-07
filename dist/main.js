@@ -22851,7 +22851,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var useKeyboardControls = (keyboardMap, dispatch) => {
     import_react7.default.useEffect(() => {
       const keyboardDispatch = Object.entries(keyboardMap).reduce((output, [key2, action]) => {
-        output[key2] = () => dispatch(action);
+        output[key2] = () => typeof action === "function" ? action() : dispatch(action);
         return output;
       }, {});
       addKeyboardEvents(keyboardDispatch);
@@ -22913,10 +22913,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
       pause: () => dispatch("PAUSE"),
       resume: () => dispatch("RESUME"),
       hold: () => dispatch("HOLD"),
-      hardDrop: () => dispatch("HARD_DROP"),
-      moveDown: () => dispatch("MOVE_DOWN"),
-      moveLeft: () => dispatch("MOVE_LEFT"),
-      moveRight: () => dispatch("MOVE_RIGHT"),
+      hardDrop: () => props.onHardDrop,
+      moveDown: () => props.onMoveDown,
+      moveLeft: () => props.onMoveLeft,
+      moveRight: () => props.onMoveRight,
       flipClockwise: () => dispatch("FLIP_CLOCKWISE"),
       flipCounterclockwise: () => dispatch("FLIP_COUNTERCLOCKWISE"),
       restart: () => dispatch("RESTART")

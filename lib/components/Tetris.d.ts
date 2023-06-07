@@ -27,6 +27,11 @@ export declare type Controller = {
 declare type Props = {
     matrix?: Matrix;
     keyboardControls?: KeyboardMap;
+    onHardDrop: () => void;
+    onSoftDrop: () => void;
+    onMoveDown: () => void;
+    onMoveLeft: () => void;
+    onMoveRight: () => void;
     children: RenderFn;
 };
 export default function Tetris(props: Props): JSX.Element;

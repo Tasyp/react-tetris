@@ -34,6 +34,11 @@ export type Controller = {
 type Props = {
   matrix?: Matrix;
   keyboardControls?: KeyboardMap;
+  onHardDrop: () => void;
+  onSoftDrop: () => void;
+  onMoveDown: () => void;
+  onMoveLeft: () => void;
+  onMoveRight: () => void;
   children: RenderFn;
 };
 
@@ -87,10 +92,10 @@ export default function Tetris(props: Props): JSX.Element {
       pause: () => dispatch('PAUSE'),
       resume: () => dispatch('RESUME'),
       hold: () => dispatch('HOLD'),
-      hardDrop: () => dispatch('HARD_DROP'),
-      moveDown: () => dispatch('MOVE_DOWN'),
-      moveLeft: () => dispatch('MOVE_LEFT'),
-      moveRight: () => dispatch('MOVE_RIGHT'),
+      hardDrop: () => props.onHardDrop,
+      moveDown: () => props.onMoveDown,
+      moveLeft: () => props.onMoveLeft,
+      moveRight: () => props.onMoveRight,
       flipClockwise: () => dispatch('FLIP_CLOCKWISE'),
       flipCounterclockwise: () => dispatch('FLIP_COUNTERCLOCKWISE'),
       restart: () => dispatch('RESTART')
