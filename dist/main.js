@@ -11,9 +11,9 @@
   };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
-      for (let key2 of __getOwnPropNames(from))
-        if (!__hasOwnProp.call(to, key2) && key2 !== except)
-          __defProp(to, key2, { get: () => from[key2], enumerable: !(desc = __getOwnPropDesc(from, key2)) || desc.enumerable });
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
     }
     return to;
   };
@@ -70,9 +70,9 @@
         var symbols;
         for (var s2 = 1; s2 < arguments.length; s2++) {
           from = Object(arguments[s2]);
-          for (var key2 in from) {
-            if (hasOwnProperty.call(from, key2)) {
-              to[key2] = from[key2];
+          for (var key in from) {
+            if (hasOwnProperty.call(from, key)) {
+              to[key] = from[key];
             }
           }
           if (getOwnPropertySymbols) {
@@ -460,11 +460,11 @@
               }
             }
           }
-          var ReactElement = function(type, key2, ref, self, source, owner, props) {
+          var ReactElement = function(type, key, ref, self, source, owner, props) {
             var element = {
               $$typeof: REACT_ELEMENT_TYPE,
               type,
-              key: key2,
+              key,
               ref,
               props,
               _owner: owner
@@ -499,7 +499,7 @@
           function createElement(type, config, children) {
             var propName;
             var props = {};
-            var key2 = null;
+            var key = null;
             var ref = null;
             var self = null;
             var source = null;
@@ -511,7 +511,7 @@
                 }
               }
               if (hasValidKey(config)) {
-                key2 = "" + config.key;
+                key = "" + config.key;
               }
               self = config.__self === void 0 ? null : config.__self;
               source = config.__source === void 0 ? null : config.__source;
@@ -545,9 +545,9 @@
               }
             }
             {
-              if (key2 || ref) {
+              if (key || ref) {
                 var displayName = typeof type === "function" ? type.displayName || type.name || "Unknown" : type;
-                if (key2) {
+                if (key) {
                   defineKeyPropWarningGetter(props, displayName);
                 }
                 if (ref) {
@@ -555,7 +555,7 @@
                 }
               }
             }
-            return ReactElement(type, key2, ref, self, source, ReactCurrentOwner.current, props);
+            return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
           }
           function cloneAndReplaceKey(oldElement, newKey) {
             var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
@@ -569,7 +569,7 @@
             }
             var propName;
             var props = _assign({}, element.props);
-            var key2 = element.key;
+            var key = element.key;
             var ref = element.ref;
             var self = element._self;
             var source = element._source;
@@ -580,7 +580,7 @@
                 owner = ReactCurrentOwner.current;
               }
               if (hasValidKey(config)) {
-                key2 = "" + config.key;
+                key = "" + config.key;
               }
               var defaultProps;
               if (element.type && element.type.defaultProps) {
@@ -606,20 +606,20 @@
               }
               props.children = childArray;
             }
-            return ReactElement(element.type, key2, ref, self, source, owner, props);
+            return ReactElement(element.type, key, ref, self, source, owner, props);
           }
           function isValidElement(object) {
             return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
           }
           var SEPARATOR = ".";
           var SUBSEPARATOR = ":";
-          function escape(key2) {
+          function escape(key) {
             var escapeRegex = /[=:]/g;
             var escaperLookup = {
               "=": "=0",
               ":": "=2"
             };
-            var escapedString = key2.replace(escapeRegex, function(match) {
+            var escapedString = key.replace(escapeRegex, function(match) {
               return escaperLookup[match];
             });
             return "$" + escapedString;
@@ -1501,10 +1501,10 @@
             {
               var keys = Object.keys(fragment.props);
               for (var i2 = 0; i2 < keys.length; i2++) {
-                var key2 = keys[i2];
-                if (key2 !== "children" && key2 !== "key") {
+                var key = keys[i2];
+                if (key !== "children" && key !== "key") {
                   setCurrentlyValidatingElement$1(fragment);
-                  error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key2);
+                  error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
                   setCurrentlyValidatingElement$1(null);
                   break;
                 }
@@ -2438,11 +2438,11 @@
       if (true) {
         (function() {
           "use strict";
-          var React13 = require_react();
+          var React12 = require_react();
           var _assign = require_object_assign();
           var Scheduler = require_scheduler();
           var tracing = require_tracing();
-          var ReactSharedInternals = React13.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React12.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function warn(format) {
             {
               for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -2474,7 +2474,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat);
             }
           }
-          if (!React13) {
+          if (!React12) {
             {
               throw Error("ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.");
             }
@@ -3690,7 +3690,7 @@
           var didWarnInvalidChild = false;
           function flattenChildren(children) {
             var content = "";
-            React13.Children.forEach(children, function(child) {
+            React12.Children.forEach(children, function(child) {
               if (child == null) {
                 return;
               }
@@ -3701,7 +3701,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === "object" && props.children !== null) {
-                React13.Children.forEach(props.children, function(child) {
+                React12.Children.forEach(props.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -4106,8 +4106,8 @@
             strokeOpacity: true,
             strokeWidth: true
           };
-          function prefixKey(prefix2, key2) {
-            return prefix2 + key2.charAt(0).toUpperCase() + key2.substring(1);
+          function prefixKey(prefix2, key) {
+            return prefix2 + key.charAt(0).toUpperCase() + key.substring(1);
           }
           var prefixes = ["Webkit", "ms", "Moz", "O"];
           Object.keys(isUnitlessNumber).forEach(function(prop) {
@@ -4246,10 +4246,10 @@
           }
           function expandShorthandMap(styles) {
             var expanded = {};
-            for (var key2 in styles) {
-              var longhands = shorthandToLonghand[key2] || [key2];
+            for (var key in styles) {
+              var longhands = shorthandToLonghand[key] || [key];
               for (var i2 = 0; i2 < longhands.length; i2++) {
-                expanded[longhands[i2]] = key2;
+                expanded[longhands[i2]] = key;
               }
             }
             return expanded;
@@ -4262,9 +4262,9 @@
               var expandedUpdates = expandShorthandMap(styleUpdates);
               var expandedStyles = expandShorthandMap(nextStyles);
               var warnedAbout = {};
-              for (var key2 in expandedUpdates) {
-                var originalKey = expandedUpdates[key2];
-                var correctOriginalKey = expandedStyles[key2];
+              for (var key in expandedUpdates) {
+                var originalKey = expandedUpdates[key];
+                var correctOriginalKey = expandedStyles[key];
                 if (correctOriginalKey && originalKey !== correctOriginalKey) {
                   var warningKey = originalKey + "," + correctOriginalKey;
                   if (warnedAbout[warningKey]) {
@@ -4926,10 +4926,10 @@
           function warnInvalidARIAProps(type, props) {
             {
               var invalidProps = [];
-              for (var key2 in props) {
-                var isValid = validateProperty(type, key2);
+              for (var key in props) {
+                var isValid = validateProperty(type, key);
                 if (!isValid) {
-                  invalidProps.push(key2);
+                  invalidProps.push(key);
                 }
               }
               var unknownPropString = invalidProps.map(function(prop) {
@@ -5070,10 +5070,10 @@
           var warnUnknownProperties = function(type, props, eventRegistry) {
             {
               var unknownProps = [];
-              for (var key2 in props) {
-                var isValid = validateProperty$1(type, key2, props[key2], eventRegistry);
+              for (var key in props) {
+                var isValid = validateProperty$1(type, key, props[key], eventRegistry);
                 if (!isValid) {
-                  unknownProps.push(key2);
+                  unknownProps.push(key);
                 }
               }
               var unknownPropString = unknownProps.map(function(prop) {
@@ -5407,14 +5407,14 @@
               }
             }
           }
-          function get(key2) {
-            return key2._reactInternals;
+          function get(key) {
+            return key._reactInternals;
           }
-          function has(key2) {
-            return key2._reactInternals !== void 0;
+          function has(key) {
+            return key._reactInternals !== void 0;
           }
-          function set(key2, value) {
-            key2._reactInternals = value;
+          function set(key, value) {
+            key._reactInternals = value;
           }
           var NoFlags = 0;
           var PerformedWork = 1;
@@ -5881,9 +5881,9 @@
             }
             return true;
           }
-          function attemptReplayContinuousQueuedEventInMap(queuedEvent, key2, map) {
+          function attemptReplayContinuousQueuedEventInMap(queuedEvent, key, map) {
             if (attemptReplayContinuousQueuedEvent(queuedEvent)) {
-              map.delete(key2);
+              map.delete(key);
             }
           }
           function replayUnblockedEvents() {
@@ -7002,9 +7002,9 @@
           };
           function getEventKey(nativeEvent) {
             if (nativeEvent.key) {
-              var key2 = normalizeKey[nativeEvent.key] || nativeEvent.key;
-              if (key2 !== "Unidentified") {
-                return key2;
+              var key = normalizeKey[nativeEvent.key] || nativeEvent.key;
+              if (key !== "Unidentified") {
+                return key;
               }
             }
             if (nativeEvent.type === "keypress") {
@@ -9829,8 +9829,8 @@
                 return instance.__reactInternalMemoizedMaskedChildContext;
               }
               var context = {};
-              for (var key2 in contextTypes) {
-                context[key2] = unmaskedContext[key2];
+              for (var key in contextTypes) {
+                context[key] = unmaskedContext[key];
               }
               {
                 var name = getComponentName(type) || "Unknown";
@@ -10894,7 +10894,7 @@
           }
           var fakeInternalInstance = {};
           var isArray = Array.isArray;
-          var emptyRefsObject = new React13.Component().refs;
+          var emptyRefsObject = new React12.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -10919,9 +10919,9 @@
               if (callback === null || typeof callback === "function") {
                 return;
               }
-              var key2 = callerName + "_" + callback;
-              if (!didWarnOnInvalidCallback.has(key2)) {
-                didWarnOnInvalidCallback.add(key2);
+              var key = callerName + "_" + callback;
+              if (!didWarnOnInvalidCallback.has(key)) {
+                didWarnOnInvalidCallback.add(key);
                 error("%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callerName, callback);
               }
             };
@@ -11669,9 +11669,9 @@
                 return existing;
               }
             }
-            function updateFragment2(returnFiber, current2, fragment, lanes, key2) {
+            function updateFragment2(returnFiber, current2, fragment, lanes, key) {
               if (current2 === null || current2.tag !== Fragment) {
-                var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key2);
+                var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
                 created.return = returnFiber;
                 return created;
               } else {
@@ -11715,9 +11715,9 @@
               return null;
             }
             function updateSlot(returnFiber, oldFiber, newChild, lanes) {
-              var key2 = oldFiber !== null ? oldFiber.key : null;
+              var key = oldFiber !== null ? oldFiber.key : null;
               if (typeof newChild === "string" || typeof newChild === "number") {
-                if (key2 !== null) {
+                if (key !== null) {
                   return null;
                 }
                 return updateTextNode(returnFiber, oldFiber, "" + newChild, lanes);
@@ -11725,9 +11725,9 @@
               if (typeof newChild === "object" && newChild !== null) {
                 switch (newChild.$$typeof) {
                   case REACT_ELEMENT_TYPE: {
-                    if (newChild.key === key2) {
+                    if (newChild.key === key) {
                       if (newChild.type === REACT_FRAGMENT_TYPE) {
-                        return updateFragment2(returnFiber, oldFiber, newChild.props.children, lanes, key2);
+                        return updateFragment2(returnFiber, oldFiber, newChild.props.children, lanes, key);
                       }
                       return updateElement(returnFiber, oldFiber, newChild, lanes);
                     } else {
@@ -11735,7 +11735,7 @@
                     }
                   }
                   case REACT_PORTAL_TYPE: {
-                    if (newChild.key === key2) {
+                    if (newChild.key === key) {
                       return updatePortal(returnFiber, oldFiber, newChild, lanes);
                     } else {
                       return null;
@@ -11743,7 +11743,7 @@
                   }
                 }
                 if (isArray$1(newChild) || getIteratorFn(newChild)) {
-                  if (key2 !== null) {
+                  if (key !== null) {
                     return null;
                   }
                   return updateFragment2(returnFiber, oldFiber, newChild, lanes, null);
@@ -11798,20 +11798,20 @@
                   case REACT_ELEMENT_TYPE:
                   case REACT_PORTAL_TYPE:
                     warnForMissingKey(child, returnFiber);
-                    var key2 = child.key;
-                    if (typeof key2 !== "string") {
+                    var key = child.key;
+                    if (typeof key !== "string") {
                       break;
                     }
                     if (knownKeys === null) {
                       knownKeys = /* @__PURE__ */ new Set();
-                      knownKeys.add(key2);
+                      knownKeys.add(key);
                       break;
                     }
-                    if (!knownKeys.has(key2)) {
-                      knownKeys.add(key2);
+                    if (!knownKeys.has(key)) {
+                      knownKeys.add(key);
                       break;
                     }
-                    error("Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted \u2014 the behavior is unsupported and could change in a future version.", key2);
+                    error("Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted \u2014 the behavior is unsupported and could change in a future version.", key);
                     break;
                 }
               }
@@ -12033,10 +12033,10 @@
               return created;
             }
             function reconcileSingleElement(returnFiber, currentFirstChild, element, lanes) {
-              var key2 = element.key;
+              var key = element.key;
               var child = currentFirstChild;
               while (child !== null) {
-                if (child.key === key2) {
+                if (child.key === key) {
                   switch (child.tag) {
                     case Fragment: {
                       if (element.type === REACT_FRAGMENT_TYPE) {
@@ -12086,10 +12086,10 @@
               }
             }
             function reconcileSinglePortal(returnFiber, currentFirstChild, portal, lanes) {
-              var key2 = portal.key;
+              var key = portal.key;
               var child = currentFirstChild;
               while (child !== null) {
-                if (child.key === key2) {
+                if (child.key === key) {
                   if (child.tag === HostPortal && child.stateNode.containerInfo === portal.containerInfo && child.stateNode.implementation === portal.implementation) {
                     deleteRemainingChildren(returnFiber, child.sibling);
                     var existing = useFiber(child, portal.children || []);
@@ -19218,9 +19218,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
           }
           var debugCounter = 1;
-          function FiberNode(tag, pendingProps, key2, mode) {
+          function FiberNode(tag, pendingProps, key, mode) {
             this.tag = tag;
-            this.key = key2;
+            this.key = key;
             this.elementType = null;
             this.type = null;
             this.stateNode = null;
@@ -19263,8 +19263,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               }
             }
           }
-          var createFiber = function(tag, pendingProps, key2, mode) {
-            return new FiberNode(tag, pendingProps, key2, mode);
+          var createFiber = function(tag, pendingProps, key, mode) {
+            return new FiberNode(tag, pendingProps, key, mode);
           };
           function shouldConstruct$1(Component) {
             var prototype = Component.prototype;
@@ -19403,7 +19403,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
             return createFiber(HostRoot, null, null, mode);
           }
-          function createFiberFromTypeAndProps(type, key2, pendingProps, owner, mode, lanes) {
+          function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes) {
             var fiberTag = IndeterminateComponent;
             var resolvedType = type;
             if (typeof type === "function") {
@@ -19423,7 +19423,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               getTag:
                 switch (type) {
                   case REACT_FRAGMENT_TYPE:
-                    return createFiberFromFragment(pendingProps.children, mode, lanes, key2);
+                    return createFiberFromFragment(pendingProps.children, mode, lanes, key);
                   case REACT_DEBUG_TRACING_MODE_TYPE:
                     fiberTag = Mode;
                     mode |= DebugTracingMode;
@@ -19433,15 +19433,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                     mode |= StrictMode;
                     break;
                   case REACT_PROFILER_TYPE:
-                    return createFiberFromProfiler(pendingProps, mode, lanes, key2);
+                    return createFiberFromProfiler(pendingProps, mode, lanes, key);
                   case REACT_SUSPENSE_TYPE:
-                    return createFiberFromSuspense(pendingProps, mode, lanes, key2);
+                    return createFiberFromSuspense(pendingProps, mode, lanes, key);
                   case REACT_SUSPENSE_LIST_TYPE:
-                    return createFiberFromSuspenseList(pendingProps, mode, lanes, key2);
+                    return createFiberFromSuspenseList(pendingProps, mode, lanes, key);
                   case REACT_OFFSCREEN_TYPE:
-                    return createFiberFromOffscreen(pendingProps, mode, lanes, key2);
+                    return createFiberFromOffscreen(pendingProps, mode, lanes, key);
                   case REACT_LEGACY_HIDDEN_TYPE:
-                    return createFiberFromLegacyHidden(pendingProps, mode, lanes, key2);
+                    return createFiberFromLegacyHidden(pendingProps, mode, lanes, key);
                   case REACT_SCOPE_TYPE:
                   default: {
                     if (typeof type === "object" && type !== null) {
@@ -19488,7 +19488,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
                   }
                 }
             }
-            var fiber = createFiber(fiberTag, pendingProps, key2, mode);
+            var fiber = createFiber(fiberTag, pendingProps, key, mode);
             fiber.elementType = type;
             fiber.type = resolvedType;
             fiber.lanes = lanes;
@@ -19503,27 +19503,27 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               owner = element._owner;
             }
             var type = element.type;
-            var key2 = element.key;
+            var key = element.key;
             var pendingProps = element.props;
-            var fiber = createFiberFromTypeAndProps(type, key2, pendingProps, owner, mode, lanes);
+            var fiber = createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes);
             {
               fiber._debugSource = element._source;
               fiber._debugOwner = element._owner;
             }
             return fiber;
           }
-          function createFiberFromFragment(elements, mode, lanes, key2) {
-            var fiber = createFiber(Fragment, elements, key2, mode);
+          function createFiberFromFragment(elements, mode, lanes, key) {
+            var fiber = createFiber(Fragment, elements, key, mode);
             fiber.lanes = lanes;
             return fiber;
           }
-          function createFiberFromProfiler(pendingProps, mode, lanes, key2) {
+          function createFiberFromProfiler(pendingProps, mode, lanes, key) {
             {
               if (typeof pendingProps.id !== "string") {
                 error('Profiler must specify an "id" as a prop');
               }
             }
-            var fiber = createFiber(Profiler, pendingProps, key2, mode | ProfileMode);
+            var fiber = createFiber(Profiler, pendingProps, key, mode | ProfileMode);
             fiber.elementType = REACT_PROFILER_TYPE;
             fiber.type = REACT_PROFILER_TYPE;
             fiber.lanes = lanes;
@@ -19535,15 +19535,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
             return fiber;
           }
-          function createFiberFromSuspense(pendingProps, mode, lanes, key2) {
-            var fiber = createFiber(SuspenseComponent, pendingProps, key2, mode);
+          function createFiberFromSuspense(pendingProps, mode, lanes, key) {
+            var fiber = createFiber(SuspenseComponent, pendingProps, key, mode);
             fiber.type = REACT_SUSPENSE_TYPE;
             fiber.elementType = REACT_SUSPENSE_TYPE;
             fiber.lanes = lanes;
             return fiber;
           }
-          function createFiberFromSuspenseList(pendingProps, mode, lanes, key2) {
-            var fiber = createFiber(SuspenseListComponent, pendingProps, key2, mode);
+          function createFiberFromSuspenseList(pendingProps, mode, lanes, key) {
+            var fiber = createFiber(SuspenseListComponent, pendingProps, key, mode);
             {
               fiber.type = REACT_SUSPENSE_LIST_TYPE;
             }
@@ -19551,8 +19551,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             fiber.lanes = lanes;
             return fiber;
           }
-          function createFiberFromOffscreen(pendingProps, mode, lanes, key2) {
-            var fiber = createFiber(OffscreenComponent, pendingProps, key2, mode);
+          function createFiberFromOffscreen(pendingProps, mode, lanes, key) {
+            var fiber = createFiber(OffscreenComponent, pendingProps, key, mode);
             {
               fiber.type = REACT_OFFSCREEN_TYPE;
             }
@@ -19560,8 +19560,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             fiber.lanes = lanes;
             return fiber;
           }
-          function createFiberFromLegacyHidden(pendingProps, mode, lanes, key2) {
-            var fiber = createFiber(LegacyHiddenComponent, pendingProps, key2, mode);
+          function createFiberFromLegacyHidden(pendingProps, mode, lanes, key) {
+            var fiber = createFiber(LegacyHiddenComponent, pendingProps, key, mode);
             {
               fiber.type = REACT_LEGACY_HIDDEN_TYPE;
             }
@@ -19694,10 +19694,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
             }
           }
           function createPortal(children, containerInfo, implementation) {
-            var key2 = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
+            var key = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null;
             return {
               $$typeof: REACT_PORTAL_TYPE,
-              key: key2 == null ? null : "" + key2,
+              key: key == null ? null : "" + key,
               children,
               containerInfo,
               implementation
@@ -19899,17 +19899,17 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           var setSuspenseHandler = null;
           {
             var copyWithDeleteImpl = function(obj, path, index3) {
-              var key2 = path[index3];
+              var key = path[index3];
               var updated = Array.isArray(obj) ? obj.slice() : _assign({}, obj);
               if (index3 + 1 === path.length) {
                 if (Array.isArray(updated)) {
-                  updated.splice(key2, 1);
+                  updated.splice(key, 1);
                 } else {
-                  delete updated[key2];
+                  delete updated[key];
                 }
                 return updated;
               }
-              updated[key2] = copyWithDeleteImpl(obj[key2], path, index3 + 1);
+              updated[key] = copyWithDeleteImpl(obj[key], path, index3 + 1);
               return updated;
             };
             var copyWithDelete = function(obj, path) {
@@ -19949,9 +19949,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
               if (index3 >= path.length) {
                 return value;
               }
-              var key2 = path[index3];
+              var key = path[index3];
               var updated = Array.isArray(obj) ? obj.slice() : _assign({}, obj);
-              updated[key2] = copyWithSetImpl(obj[key2], path, index3 + 1, value);
+              updated[key] = copyWithSetImpl(obj[key], path, index3 + 1, value);
               return updated;
             };
             var copyWithSet = function(obj, path, value) {
@@ -20340,26 +20340,26 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           setRestoreImplementation(restoreControlledState$3);
           setBatchingImplementation(batchedUpdates$1, discreteUpdates$1, flushDiscreteUpdates, batchedEventUpdates$1);
           function createPortal$1(children, container) {
-            var key2 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
+            var key = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
             if (!isValidContainer(container)) {
               {
                 throw Error("Target container is not a DOM element.");
               }
             }
-            return createPortal(children, container, null, key2);
+            return createPortal(children, container, null, key);
           }
           function renderSubtreeIntoContainer(parentComponent, element, containerNode, callback) {
             return unstable_renderSubtreeIntoContainer(parentComponent, element, containerNode, callback);
           }
           function unstable_createPortal(children, container) {
-            var key2 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
+            var key = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : null;
             {
               if (!didWarnAboutUnstableCreatePortal) {
                 didWarnAboutUnstableCreatePortal = true;
                 warn('The ReactDOM.unstable_createPortal() alias has been deprecated, and will be removed in React 18+. Update your code to use ReactDOM.createPortal() instead. It has the exact same API, but without the "unstable_" prefix.');
               }
             }
-            return createPortal$1(children, container, key2);
+            return createPortal$1(children, container, key);
           }
           var Internals = {
             Events: [
@@ -20604,13 +20604,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         }
         var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
         for (var idx = 0; idx < keysA.length; idx++) {
-          var key2 = keysA[idx];
-          if (!bHasOwnProperty(key2)) {
+          var key = keysA[idx];
+          if (!bHasOwnProperty(key)) {
             return false;
           }
-          var valueA = objA[key2];
-          var valueB = objB[key2];
-          ret = compare ? compare.call(compareContext, valueA, valueB, key2) : void 0;
+          var valueA = objA[key];
+          var valueB = objB[key];
+          ret = compare ? compare.call(compareContext, valueA, valueB, key) : void 0;
           if (ret === false || ret === void 0 && valueA !== valueB) {
             return false;
           }
@@ -20692,11 +20692,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
           var targetStatics = getStatics(targetComponent);
           var sourceStatics = getStatics(sourceComponent);
           for (var i2 = 0; i2 < keys.length; ++i2) {
-            var key2 = keys[i2];
-            if (!KNOWN_STATICS[key2] && !(blacklist && blacklist[key2]) && !(sourceStatics && sourceStatics[key2]) && !(targetStatics && targetStatics[key2])) {
-              var descriptor = getOwnPropertyDescriptor(sourceComponent, key2);
+            var key = keys[i2];
+            if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+              var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
               try {
-                defineProperty(targetComponent, key2, descriptor);
+                defineProperty(targetComponent, key, descriptor);
               } catch (e2) {
               }
             }
@@ -20708,288 +20708,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     }
   });
 
-  // node_modules/keymaster/keymaster.js
-  var require_keymaster = __commonJS({
-    "node_modules/keymaster/keymaster.js"(exports, module) {
-      (function(global) {
-        var k2, _handlers = {}, _mods = { 16: false, 18: false, 17: false, 91: false }, _scope = "all", _MODIFIERS = {
-          "\u21E7": 16,
-          shift: 16,
-          "\u2325": 18,
-          alt: 18,
-          option: 18,
-          "\u2303": 17,
-          ctrl: 17,
-          control: 17,
-          "\u2318": 91,
-          command: 91
-        }, _MAP = {
-          backspace: 8,
-          tab: 9,
-          clear: 12,
-          enter: 13,
-          "return": 13,
-          esc: 27,
-          escape: 27,
-          space: 32,
-          left: 37,
-          up: 38,
-          right: 39,
-          down: 40,
-          del: 46,
-          "delete": 46,
-          home: 36,
-          end: 35,
-          pageup: 33,
-          pagedown: 34,
-          ",": 188,
-          ".": 190,
-          "/": 191,
-          "`": 192,
-          "-": 189,
-          "=": 187,
-          ";": 186,
-          "'": 222,
-          "[": 219,
-          "]": 221,
-          "\\": 220
-        }, code = function(x2) {
-          return _MAP[x2] || x2.toUpperCase().charCodeAt(0);
-        }, _downKeys = [];
-        for (k2 = 1; k2 < 20; k2++)
-          _MAP["f" + k2] = 111 + k2;
-        function index2(array, item) {
-          var i2 = array.length;
-          while (i2--)
-            if (array[i2] === item)
-              return i2;
-          return -1;
-        }
-        function compareArray(a1, a2) {
-          if (a1.length != a2.length)
-            return false;
-          for (var i2 = 0; i2 < a1.length; i2++) {
-            if (a1[i2] !== a2[i2])
-              return false;
-          }
-          return true;
-        }
-        var modifierMap = {
-          16: "shiftKey",
-          18: "altKey",
-          17: "ctrlKey",
-          91: "metaKey"
-        };
-        function updateModifierKey(event) {
-          for (k2 in _mods)
-            _mods[k2] = event[modifierMap[k2]];
-        }
-        ;
-        function dispatch(event) {
-          var key2, handler, k3, i2, modifiersMatch, scope;
-          key2 = event.keyCode;
-          if (index2(_downKeys, key2) == -1) {
-            _downKeys.push(key2);
-          }
-          if (key2 == 93 || key2 == 224)
-            key2 = 91;
-          if (key2 in _mods) {
-            _mods[key2] = true;
-            for (k3 in _MODIFIERS)
-              if (_MODIFIERS[k3] == key2)
-                assignKey[k3] = true;
-            return;
-          }
-          updateModifierKey(event);
-          if (!assignKey.filter.call(this, event))
-            return;
-          if (!(key2 in _handlers))
-            return;
-          scope = getScope();
-          for (i2 = 0; i2 < _handlers[key2].length; i2++) {
-            handler = _handlers[key2][i2];
-            if (handler.scope == scope || handler.scope == "all") {
-              modifiersMatch = handler.mods.length > 0;
-              for (k3 in _mods)
-                if (!_mods[k3] && index2(handler.mods, +k3) > -1 || _mods[k3] && index2(handler.mods, +k3) == -1)
-                  modifiersMatch = false;
-              if (handler.mods.length == 0 && !_mods[16] && !_mods[18] && !_mods[17] && !_mods[91] || modifiersMatch) {
-                if (handler.method(event, handler) === false) {
-                  if (event.preventDefault)
-                    event.preventDefault();
-                  else
-                    event.returnValue = false;
-                  if (event.stopPropagation)
-                    event.stopPropagation();
-                  if (event.cancelBubble)
-                    event.cancelBubble = true;
-                }
-              }
-            }
-          }
-        }
-        ;
-        function clearModifier(event) {
-          var key2 = event.keyCode, k3, i2 = index2(_downKeys, key2);
-          if (i2 >= 0) {
-            _downKeys.splice(i2, 1);
-          }
-          if (key2 == 93 || key2 == 224)
-            key2 = 91;
-          if (key2 in _mods) {
-            _mods[key2] = false;
-            for (k3 in _MODIFIERS)
-              if (_MODIFIERS[k3] == key2)
-                assignKey[k3] = false;
-          }
-        }
-        ;
-        function resetModifiers() {
-          for (k2 in _mods)
-            _mods[k2] = false;
-          for (k2 in _MODIFIERS)
-            assignKey[k2] = false;
-        }
-        ;
-        function assignKey(key2, scope, method) {
-          var keys, mods;
-          keys = getKeys(key2);
-          if (method === void 0) {
-            method = scope;
-            scope = "all";
-          }
-          for (var i2 = 0; i2 < keys.length; i2++) {
-            mods = [];
-            key2 = keys[i2].split("+");
-            if (key2.length > 1) {
-              mods = getMods(key2);
-              key2 = [key2[key2.length - 1]];
-            }
-            key2 = key2[0];
-            key2 = code(key2);
-            if (!(key2 in _handlers))
-              _handlers[key2] = [];
-            _handlers[key2].push({ shortcut: keys[i2], scope, method, key: keys[i2], mods });
-          }
-        }
-        ;
-        function unbindKey(key2, scope) {
-          var multipleKeys, keys, mods = [], i2, j2, obj;
-          multipleKeys = getKeys(key2);
-          for (j2 = 0; j2 < multipleKeys.length; j2++) {
-            keys = multipleKeys[j2].split("+");
-            if (keys.length > 1) {
-              mods = getMods(keys);
-              key2 = keys[keys.length - 1];
-            }
-            key2 = code(key2);
-            if (scope === void 0) {
-              scope = getScope();
-            }
-            if (!_handlers[key2]) {
-              return;
-            }
-            for (i2 = 0; i2 < _handlers[key2].length; i2++) {
-              obj = _handlers[key2][i2];
-              if (obj.scope === scope && compareArray(obj.mods, mods)) {
-                _handlers[key2][i2] = {};
-              }
-            }
-          }
-        }
-        ;
-        function isPressed2(keyCode) {
-          if (typeof keyCode == "string") {
-            keyCode = code(keyCode);
-          }
-          return index2(_downKeys, keyCode) != -1;
-        }
-        function getPressedKeyCodes() {
-          return _downKeys.slice(0);
-        }
-        function filter(event) {
-          var tagName = (event.target || event.srcElement).tagName;
-          return !(tagName == "INPUT" || tagName == "SELECT" || tagName == "TEXTAREA");
-        }
-        for (k2 in _MODIFIERS)
-          assignKey[k2] = false;
-        function setScope(scope) {
-          _scope = scope || "all";
-        }
-        ;
-        function getScope() {
-          return _scope || "all";
-        }
-        ;
-        function deleteScope(scope) {
-          var key2, handlers, i2;
-          for (key2 in _handlers) {
-            handlers = _handlers[key2];
-            for (i2 = 0; i2 < handlers.length; ) {
-              if (handlers[i2].scope === scope)
-                handlers.splice(i2, 1);
-              else
-                i2++;
-            }
-          }
-        }
-        ;
-        function getKeys(key2) {
-          var keys;
-          key2 = key2.replace(/\s/g, "");
-          keys = key2.split(",");
-          if (keys[keys.length - 1] == "") {
-            keys[keys.length - 2] += ",";
-          }
-          return keys;
-        }
-        function getMods(key2) {
-          var mods = key2.slice(0, key2.length - 1);
-          for (var mi = 0; mi < mods.length; mi++)
-            mods[mi] = _MODIFIERS[mods[mi]];
-          return mods;
-        }
-        function addEvent(object, event, method) {
-          if (object.addEventListener)
-            object.addEventListener(event, method, false);
-          else if (object.attachEvent)
-            object.attachEvent("on" + event, function() {
-              method(window.event);
-            });
-        }
-        ;
-        addEvent(document, "keydown", function(event) {
-          dispatch(event);
-        });
-        addEvent(document, "keyup", clearModifier);
-        addEvent(window, "focus", resetModifiers);
-        var previousKey = global.key;
-        function noConflict() {
-          var k3 = global.key;
-          global.key = previousKey;
-          return k3;
-        }
-        global.key = assignKey;
-        global.key.setScope = setScope;
-        global.key.getScope = getScope;
-        global.key.deleteScope = deleteScope;
-        global.key.filter = filter;
-        global.key.isPressed = isPressed2;
-        global.key.getPressedKeyCodes = getPressedKeyCodes;
-        global.key.noConflict = noConflict;
-        global.key.unbind = unbindKey;
-        if (typeof module !== "undefined")
-          module.exports = assignKey;
-      })(exports);
-    }
-  });
-
   // app/main.tsx
-  var import_react13 = __toESM(require_react());
+  var import_react12 = __toESM(require_react());
   var import_react_dom = __toESM(require_react_dom());
 
   // app/App.tsx
-  var import_react12 = __toESM(require_react());
+  var import_react11 = __toESM(require_react());
 
   // node_modules/styled-components/dist/styled-components.browser.esm.js
   var import_react_is = __toESM(require_react_is());
@@ -22186,10 +21910,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   var styled_components_browser_esm_default = He;
 
   // app/GamePanel.tsx
-  var import_react10 = __toESM(require_react());
+  var import_react9 = __toESM(require_react());
 
   // src/components/Tetris.tsx
-  var import_react8 = __toESM(require_react());
+  var import_react7 = __toESM(require_react());
 
   // src/components/Gameboard.tsx
   var import_react3 = __toESM(require_react());
@@ -22810,95 +22534,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     })));
   }
 
-  // src/hooks/useKeyboardControls.ts
-  var import_react7 = __toESM(require_react());
-  var import_keymaster = __toESM(require_keymaster());
-
-  // src/modules/detect-shift.ts
-  var callbacks = [];
-  var isPressed = false;
-  document.addEventListener("keydown", (e2) => {
-    if (e2.shiftKey && !isPressed) {
-      isPressed = e2.shiftKey;
-      callCallbacks();
-    }
-    return true;
-  });
-  document.addEventListener("keyup", (e2) => {
-    if (!e2.shiftKey && isPressed) {
-      isPressed = e2.shiftKey;
-    }
-    return true;
-  });
-  function callCallbacks() {
-    callbacks.forEach((callback) => {
-      callback();
-    });
-  }
-  var detect_shift_default = {
-    bind(callback) {
-      callbacks.push(callback);
-    },
-    unbind(callback) {
-      const index2 = callbacks.indexOf(callback);
-      if (index2 !== -1) {
-        callbacks.splice(index2, 1);
-      }
-    }
-  };
-
-  // src/hooks/useKeyboardControls.ts
-  var useKeyboardControls = (keyboardMap, dispatch) => {
-    import_react7.default.useEffect(() => {
-      const keyboardDispatch = Object.entries(keyboardMap).reduce((output, [key2, action]) => {
-        output[key2] = () => typeof action === "function" ? action() : dispatch(action);
-        return output;
-      }, {});
-      addKeyboardEvents(keyboardDispatch);
-      return () => removeKeyboardEvents(keyboardDispatch);
-    }, [keyboardMap, dispatch]);
-  };
-  function addKeyboardEvents(keyboardMap) {
-    Object.keys(keyboardMap).forEach((k2) => {
-      const fn = keyboardMap[k2];
-      if (k2 === "shift" && fn) {
-        detect_shift_default.bind(fn);
-      } else if (fn) {
-        (0, import_keymaster.default)(k2, fn);
-      }
-    });
-  }
-  function removeKeyboardEvents(keyboardMap) {
-    Object.keys(keyboardMap).forEach((k2) => {
-      if (k2 === "shift") {
-        const fn = keyboardMap[k2];
-        fn && detect_shift_default.unbind(fn);
-      } else {
-        import_keymaster.default.unbind(k2);
-      }
-    });
-  }
-
   // src/components/Tetris.tsx
-  var defaultKeyboardMap = {
-    down: "MOVE_DOWN",
-    left: "MOVE_LEFT",
-    right: "MOVE_RIGHT",
-    space: "HARD_DROP",
-    z: "FLIP_COUNTERCLOCKWISE",
-    x: "FLIP_CLOCKWISE",
-    up: "FLIP_CLOCKWISE",
-    p: "TOGGLE_PAUSE",
-    c: "HOLD",
-    shift: "HOLD"
-  };
+  var noOp = (t2) => t2;
   var tickSeconds = (level) => (0.8 - (level - 1) * 7e-3) ** (level - 1);
   function Tetris(props) {
-    const [game, dispatch] = import_react8.default.useReducer(update, init(props.matrix));
-    const keyboardMap = props.keyboardControls ?? defaultKeyboardMap;
-    useKeyboardControls(keyboardMap, dispatch);
+    const [game, dispatch] = import_react7.default.useReducer(update, init(props.matrix));
     const level = getLevel(game);
-    import_react8.default.useEffect(() => {
+    import_react7.default.useEffect(() => {
       let interval;
       if (game.state === "PLAYING") {
         interval = window.setInterval(() => {
@@ -22909,19 +22551,25 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         window.clearInterval(interval);
       };
     }, [game.state, level]);
-    const controller = import_react8.default.useMemo(() => ({
+    import_react7.default.useEffect(() => {
+      if (game.matrix === props.matrix) {
+        return;
+      }
+      dispatch({ type: "REPLACE_GAME", game: { matrix: props.matrix } });
+    }, [dispatch, props.matrix]);
+    const controller = import_react7.default.useMemo(() => ({
       pause: () => dispatch("PAUSE"),
       resume: () => dispatch("RESUME"),
       hold: () => dispatch("HOLD"),
-      hardDrop: () => props.onHardDrop,
-      moveDown: () => props.onMoveDown,
-      moveLeft: () => props.onMoveLeft,
-      moveRight: () => props.onMoveRight,
+      hardDrop: () => noOp,
+      moveDown: () => noOp,
+      moveLeft: () => noOp,
+      moveRight: () => noOp,
       flipClockwise: () => dispatch("FLIP_CLOCKWISE"),
       flipCounterclockwise: () => dispatch("FLIP_COUNTERCLOCKWISE"),
       restart: () => dispatch("RESTART")
     }), [dispatch]);
-    return /* @__PURE__ */ import_react8.default.createElement(Context.Provider, {
+    return /* @__PURE__ */ import_react7.default.createElement(Context.Provider, {
       value: game
     }, props.children({
       HeldPiece,
@@ -22936,36 +22584,36 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   }
 
   // app/Controller.tsx
-  var import_react9 = __toESM(require_react());
+  var import_react8 = __toESM(require_react());
   function Controller({ controller }) {
-    return /* @__PURE__ */ import_react9.default.createElement("div", {
+    return /* @__PURE__ */ import_react8.default.createElement("div", {
       style: {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         padding: "24px 12px"
       }
-    }, /* @__PURE__ */ import_react9.default.createElement("div", {
+    }, /* @__PURE__ */ import_react8.default.createElement("div", {
       style: {
         padding: "18px",
         border: "1px solid #DDD",
         borderRadius: "72px"
       }
-    }, /* @__PURE__ */ import_react9.default.createElement(DpadRow, null, /* @__PURE__ */ import_react9.default.createElement(UpDown, {
+    }, /* @__PURE__ */ import_react8.default.createElement(DpadRow, null, /* @__PURE__ */ import_react8.default.createElement(UpDown, {
       onClick: controller.flipClockwise
-    })), /* @__PURE__ */ import_react9.default.createElement(DpadMidRow, null, /* @__PURE__ */ import_react9.default.createElement(LeftRight, {
+    })), /* @__PURE__ */ import_react8.default.createElement(DpadMidRow, null, /* @__PURE__ */ import_react8.default.createElement(LeftRight, {
       onClick: controller.moveLeft
-    }), /* @__PURE__ */ import_react9.default.createElement(LeftRight, {
+    }), /* @__PURE__ */ import_react8.default.createElement(LeftRight, {
       onClick: controller.moveRight
-    })), /* @__PURE__ */ import_react9.default.createElement(DpadRow, null, /* @__PURE__ */ import_react9.default.createElement(UpDown, {
+    })), /* @__PURE__ */ import_react8.default.createElement(DpadRow, null, /* @__PURE__ */ import_react8.default.createElement(UpDown, {
       onClick: controller.moveDown
-    }))), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement(Row, null, /* @__PURE__ */ import_react9.default.createElement(RoundBtn, {
+    }))), /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(Row, null, /* @__PURE__ */ import_react8.default.createElement(RoundBtn, {
       onClick: controller.hardDrop
-    })), /* @__PURE__ */ import_react9.default.createElement(MidRow, null, /* @__PURE__ */ import_react9.default.createElement(RoundBtn, {
+    })), /* @__PURE__ */ import_react8.default.createElement(MidRow, null, /* @__PURE__ */ import_react8.default.createElement(RoundBtn, {
       onClick: controller.hold
-    }), /* @__PURE__ */ import_react9.default.createElement(RoundBtn, {
+    }), /* @__PURE__ */ import_react8.default.createElement(RoundBtn, {
       onClick: controller.flipClockwise
-    })), /* @__PURE__ */ import_react9.default.createElement(Row, null, /* @__PURE__ */ import_react9.default.createElement(RoundBtn, {
+    })), /* @__PURE__ */ import_react8.default.createElement(Row, null, /* @__PURE__ */ import_react8.default.createElement(RoundBtn, {
       onClick: controller.flipCounterclockwise
     }))));
   }
@@ -23060,7 +22708,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   margin-top: 12px;
   border-radius: 4px;
 `;
-  var GamePanel = () => /* @__PURE__ */ import_react10.default.createElement(Container, null, /* @__PURE__ */ import_react10.default.createElement(Tetris, null, ({
+  var GamePanel = () => /* @__PURE__ */ import_react9.default.createElement(Container, null, /* @__PURE__ */ import_react9.default.createElement(Tetris, null, ({
     Gameboard,
     HeldPiece: HeldPiece2,
     PieceQueue: PieceQueue3,
@@ -23068,13 +22716,13 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     linesCleared,
     state,
     controller
-  }) => /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("div", {
+  }) => /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("div", {
     style: { opacity: state === "PLAYING" ? 1 : 0.5 }
-  }, /* @__PURE__ */ import_react10.default.createElement(Score, null, /* @__PURE__ */ import_react10.default.createElement(LeftHalf, null, /* @__PURE__ */ import_react10.default.createElement("p", null, "points", /* @__PURE__ */ import_react10.default.createElement("br", null), /* @__PURE__ */ import_react10.default.createElement(Digits, null, points))), /* @__PURE__ */ import_react10.default.createElement(RightHalf, null, /* @__PURE__ */ import_react10.default.createElement("p", null, "lines", /* @__PURE__ */ import_react10.default.createElement("br", null), /* @__PURE__ */ import_react10.default.createElement(Digits, null, linesCleared)))), /* @__PURE__ */ import_react10.default.createElement(LeftColumn, null, /* @__PURE__ */ import_react10.default.createElement(HeldPiece2, null)), /* @__PURE__ */ import_react10.default.createElement(MiddleColumn, null, /* @__PURE__ */ import_react10.default.createElement(Gameboard, null)), /* @__PURE__ */ import_react10.default.createElement(RightColumn, null, /* @__PURE__ */ import_react10.default.createElement(PieceQueue3, null)), /* @__PURE__ */ import_react10.default.createElement(Controller, {
+  }, /* @__PURE__ */ import_react9.default.createElement(Score, null, /* @__PURE__ */ import_react9.default.createElement(LeftHalf, null, /* @__PURE__ */ import_react9.default.createElement("p", null, "points", /* @__PURE__ */ import_react9.default.createElement("br", null), /* @__PURE__ */ import_react9.default.createElement(Digits, null, points))), /* @__PURE__ */ import_react9.default.createElement(RightHalf, null, /* @__PURE__ */ import_react9.default.createElement("p", null, "lines", /* @__PURE__ */ import_react9.default.createElement("br", null), /* @__PURE__ */ import_react9.default.createElement(Digits, null, linesCleared)))), /* @__PURE__ */ import_react9.default.createElement(LeftColumn, null, /* @__PURE__ */ import_react9.default.createElement(HeldPiece2, null)), /* @__PURE__ */ import_react9.default.createElement(MiddleColumn, null, /* @__PURE__ */ import_react9.default.createElement(Gameboard, null)), /* @__PURE__ */ import_react9.default.createElement(RightColumn, null, /* @__PURE__ */ import_react9.default.createElement(PieceQueue3, null)), /* @__PURE__ */ import_react9.default.createElement(Controller, {
     controller
-  })), state === "PAUSED" && /* @__PURE__ */ import_react10.default.createElement(Popup, null, /* @__PURE__ */ import_react10.default.createElement(Alert, null, "Paused"), /* @__PURE__ */ import_react10.default.createElement(Button, {
+  })), state === "PAUSED" && /* @__PURE__ */ import_react9.default.createElement(Popup, null, /* @__PURE__ */ import_react9.default.createElement(Alert, null, "Paused"), /* @__PURE__ */ import_react9.default.createElement(Button, {
     onClick: controller.resume
-  }, "Resume")), state === "LOST" && /* @__PURE__ */ import_react10.default.createElement(Popup, null, /* @__PURE__ */ import_react10.default.createElement(Alert, null, "Game Over"), /* @__PURE__ */ import_react10.default.createElement(Button, {
+  }, "Resume")), state === "LOST" && /* @__PURE__ */ import_react9.default.createElement(Popup, null, /* @__PURE__ */ import_react9.default.createElement(Alert, null, "Game Over"), /* @__PURE__ */ import_react9.default.createElement(Button, {
     onClick: controller.restart
   }, "Start")))));
   var Digit = styled_components_browser_esm_default.span`
@@ -23088,14 +22736,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
     while (str.length < count) {
       str = `${0}${str}`;
     }
-    return /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, str.split("").map((digit, index2) => /* @__PURE__ */ import_react10.default.createElement(Digit, {
+    return /* @__PURE__ */ import_react9.default.createElement(import_react9.default.Fragment, null, str.split("").map((digit, index2) => /* @__PURE__ */ import_react9.default.createElement(Digit, {
       key: index2
     }, digit)));
   };
   var GamePanel_default = GamePanel;
 
   // app/TypedShell.tsx
-  var import_react11 = __toESM(require_react());
+  var import_react10 = __toESM(require_react());
   var Shell = styled_components_browser_esm_default.div`
   display: inline-block;
   margin: 18px 0;
@@ -23111,8 +22759,8 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   function TypedShell({
     children
   }) {
-    const [lettersToShow, setLettersToShow] = import_react11.default.useState(0);
-    import_react11.default.useEffect(() => {
+    const [lettersToShow, setLettersToShow] = import_react10.default.useState(0);
+    import_react10.default.useEffect(() => {
       let id;
       const addLetters = () => {
         const wait = Math.random() * 200 + 40;
@@ -23128,7 +22776,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
         id && clearTimeout(id);
       };
     }, [lettersToShow, setLettersToShow, children]);
-    return /* @__PURE__ */ import_react11.default.createElement(Shell, null, "$ ", children.slice(0, lettersToShow));
+    return /* @__PURE__ */ import_react10.default.createElement(Shell, null, "$ ", children.slice(0, lettersToShow));
   }
 
   // app/App.tsx
@@ -23169,11 +22817,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`);
   font-weight: 300;
   font-size: 18px;
 `;
-  var App = () => /* @__PURE__ */ import_react12.default.createElement(Container2, null, /* @__PURE__ */ import_react12.default.createElement(Header, null, /* @__PURE__ */ import_react12.default.createElement(Title, null, "react-tetris"), /* @__PURE__ */ import_react12.default.createElement(SubTitle, null, "Embed a game of Tetris in your React app"), /* @__PURE__ */ import_react12.default.createElement(TypedShell, null, "npm install --save react-tetris")), /* @__PURE__ */ import_react12.default.createElement(VerticallyCenterChildren, null, /* @__PURE__ */ import_react12.default.createElement(GamePanel_default, null)));
+  var App = () => /* @__PURE__ */ import_react11.default.createElement(Container2, null, /* @__PURE__ */ import_react11.default.createElement(Header, null, /* @__PURE__ */ import_react11.default.createElement(Title, null, "react-tetris"), /* @__PURE__ */ import_react11.default.createElement(SubTitle, null, "Embed a game of Tetris in your React app"), /* @__PURE__ */ import_react11.default.createElement(TypedShell, null, "npm install --save react-tetris")), /* @__PURE__ */ import_react11.default.createElement(VerticallyCenterChildren, null, /* @__PURE__ */ import_react11.default.createElement(GamePanel_default, null)));
   var App_default = App;
 
   // app/main.tsx
-  import_react_dom.default.render(/* @__PURE__ */ import_react13.default.createElement(App_default, null), document.getElementById("main"));
+  import_react_dom.default.render(/* @__PURE__ */ import_react12.default.createElement(App_default, null), document.getElementById("main"));
 })();
 /*
 object-assign

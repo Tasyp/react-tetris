@@ -4,7 +4,6 @@ import * as Game from '../models/Game';
 import HeldPiece from './HeldPiece';
 import PieceQueue from './PieceQueue';
 import { Context } from '../context';
-import { KeyboardMap, useKeyboardControls } from '../hooks/useKeyboardControls';
 import { Matrix } from '../models/Matrix';
 
 export type RenderFn = (params: {
@@ -33,27 +32,10 @@ export type Controller = {
 
 type Props = {
   matrix?: Matrix;
-  keyboardControls?: KeyboardMap;
-  onHardDrop: () => void;
-  onSoftDrop: () => void;
-  onMoveDown: () => void;
-  onMoveLeft: () => void;
-  onMoveRight: () => void;
   children: RenderFn;
 };
 
-const defaultKeyboardMap: KeyboardMap = {
-  down: 'MOVE_DOWN',
-  left: 'MOVE_LEFT',
-  right: 'MOVE_RIGHT',
-  space: 'HARD_DROP',
-  z: 'FLIP_COUNTERCLOCKWISE',
-  x: 'FLIP_CLOCKWISE',
-  up: 'FLIP_CLOCKWISE',
-  p: 'TOGGLE_PAUSE',
-  c: 'HOLD',
-  shift: 'HOLD'
-};
+const noOp = (t: unknown) => t
 
 // https://harddrop.com/wiki/Tetris_Worlds#Gravity
 const tickSeconds = (level: number) =>
@@ -61,8 +43,6 @@ const tickSeconds = (level: number) =>
 
 export default function Tetris(props: Props): JSX.Element {
   const [game, dispatch] = React.useReducer(Game.update, Game.init(props.matrix));
-  const keyboardMap = props.keyboardControls ?? defaultKeyboardMap;
-  useKeyboardControls(keyboardMap, dispatch);
   const level = Game.getLevel(game);
 
   React.useEffect(() => {
@@ -92,10 +72,10 @@ export default function Tetris(props: Props): JSX.Element {
       pause: () => dispatch('PAUSE'),
       resume: () => dispatch('RESUME'),
       hold: () => dispatch('HOLD'),
-      hardDrop: () => props.onHardDrop,
-      moveDown: () => props.onMoveDown,
-      moveLeft: () => props.onMoveLeft,
-      moveRight: () => props.onMoveRight,
+      hardDrop: () => noOp,
+      moveDown: () => noOp,
+      moveLeft: () => noOp,
+      moveRight: () => noOp,
       flipClockwise: () => dispatch('FLIP_CLOCKWISE'),
       flipCounterclockwise: () => dispatch('FLIP_COUNTERCLOCKWISE'),
       restart: () => dispatch('RESTART')
